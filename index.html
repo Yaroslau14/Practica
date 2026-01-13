@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dota 2 — Офіційний фан-сайт</title>
+  <title>Dota 2 - Офіційний фан-сайт</title>
   
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Radiance:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet"> 
@@ -26,11 +26,54 @@
     .section-title { font-size: 4.5rem; color: var(--dota-red); text-align: center; margin: 4rem 0 3rem; }
     .news-card { transition: .4s; border: 1px solid #444; background: #222; margin-bottom: 20px; }
     .news-card:hover { transform: translateY(-10px); border-color: var(--dota-red); box-shadow: 0 10px 20px rgba(192,57,43,.4); }
-    .news-link { cursor: pointer; }
-    .news-content { padding: 15px; }
+    .news-content { cursor: pointer; }
     .comments-section { padding: 15px; border-top: 1px solid #444; background: #1a1a1a; }
     .comment-item { margin-bottom: 10px; padding: 10px; border-bottom: 1px solid #333; }
     footer { background: #111; padding: 4rem 0; }
+
+    /* Dropdown стилі (з попереднього) */
+    .dropdown-menu {
+      background: rgba(20, 20, 20, 0.96) !important;
+      backdrop-filter: blur(10px);
+      border: 1px solid #444 !important;
+      border-radius: 8px;
+      box-shadow: 0 8px 25px rgba(192, 57, 43, 0.25);
+      padding: 8px 0;
+      margin-top: 6px !important;
+      min-width: 220px;
+    }
+    .dropdown-item { padding: 10px 20px; transition: all 0.2s; }
+    .dropdown-item:hover, .dropdown-item:focus {
+      background: rgba(192, 57, 43, 0.18) !important;
+      color: #ff6b5e !important;
+      padding-left: 28px;
+    }
+    .dropdown-divider { opacity: 0.4; margin: 6px 0; }
+    .nav-link { position: relative; transition: color 0.3s; }
+    .nav-link:hover, .nav-link.active { color: var(--dota-red) !important; text-shadow: 0 0 12px rgba(192, 57, 43, 0.7); }
+    .nav-link::after {
+      content: ''; position: absolute; width: 0; height: 2px; bottom: 4px; left: 50%;
+      background: var(--dota-red); transition: all 0.35s ease; transform: translateX(-50%);
+    }
+    .nav-link:hover::after, .nav-link.active::after { width: 60%; }
+    @media (max-width: 991px) {
+      .navbar-nav { padding: 1rem 0; }
+      .nav-link { padding: 0.9rem 1.5rem !important; }
+      .dropdown-menu { border: none; box-shadow: none; background: #111; }
+    }
+
+    
+    .hero-card {
+      background: #1e1e1e; border: 1px solid #444; transition: all .3s;
+      overflow: hidden; border-radius: 12px; height: 100%;
+    }
+    .hero-card:hover {
+      transform: translateY(-8px); border-color: var(--dota-red);
+      box-shadow: 0 15px 30px rgba(192,57,43,0.3);
+    }
+    .hero-img { height: 180px; object-fit: cover; width: 100%; }
+    .hero-role { font-size: 0.9rem; color: #aaa; }
+    .hero-desc { font-size: 0.95rem; color: #ddd; }
   </style>
 </head>
 <body>
@@ -38,16 +81,43 @@
   <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container-fluid px-4">
       <a class="navbar-brand fs-2 red" href="#">DOTA<span class="red">2</span></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto gap-4 fs-5">
-          <li><a class="nav-link text-white" href="#home">Головна</a></li>
-          <li><a class="nav-link text-white" href="#about">Про гру</a></li>
-          <li><a class="nav-link text-white" href="#news">Новини</a></li>
-          <li><a class="nav-link text-white" href="#gallery">Галерея</a></li>
-          <li><a class="nav-link text-white" href="#contact">Контакти</a></li>
+        <ul class="navbar-nav ms-auto gap-3 fs-5 align-items-lg-center">
+          <li class="nav-item"><a class="nav-link text-white px-3 py-2" href="#home">Головна</a></li>
+          
+          <li class="nav-item dropdown">
+            <a class="nav-link text-white dropdown-toggle px-3 py-2" href="#" id="aboutDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Про гру
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end bg-dark border border-secondary mt-2" aria-labelledby="aboutDropdown">
+              <li><a class="dropdown-item text-white" href="#about">Огляд гри</a></li>
+              <li><a class="dropdown-item text-white" href="#heroes">Герої та ролі</a></li>
+              <li><a class="dropdown-item text-white" href="#about">Механіки та стратегії</a></li>
+              <li><hr class="dropdown-divider bg-secondary"></li>
+              <li><a class="dropdown-item text-danger fw-bold" href="https://dota2.com/heroes" target="_blank">Офіційний список героїв →</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item"><a class="nav-link text-white px-3 py-2" href="#news">Новини</a></li>
+          
+          <li class="nav-item dropdown">
+            <a class="nav-link text-white dropdown-toggle px-3 py-2" href="#" id="galleryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Галерея
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end bg-dark border border-secondary mt-2" aria-labelledby="galleryDropdown">
+              <li><a class="dropdown-item text-white" href="#gallery">Арт героїв</a></li>
+              <li><a class="dropdown-item text-white" href="#gallery">Трейлери та відео</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item"><a class="nav-link text-white px-3 py-2" href="#heroes">Герої</a></li>
+          <li class="nav-item"><a class="nav-link text-white px-3 py-2" href="#contact">Контакти</a></li>
+          <li class="nav-item" id="authItem">
+            <a class="nav-link text-white px-3 py-2" href="#" id="loginLink">УВІЙТИ</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -67,19 +137,107 @@
       <h2 class="section-title">Про гру</h2>
       <div class="row align-items-center g-5">
         <div class="col-lg-6">
-          <h3 class="red fs-1">Dota 2 — найглибша MOBA у світі</h3>
+          <h3 class="red fs-1">Dota 2 - найглибша MOBA у світі</h3>
           <p class="fs-4">Жанр: <strong>MOBA</strong></p>
-          <p class="lead">5 на 5, 124 герої, тисячі предметів, мільйони стратегій.</p>
+          <p class="lead">5 на 5, 127 героїв, тисячі предметів, мільйони стратегій (станом на 2026 рік).</p>
           <ul class="fs-5">
             <li>Три лінії, джунглі, Рошан, Ancient</li>
-            <li>Глибока механіка: ластхіти, денай, варди, смоки</li>
-            <li>Регулярні оновлення від Valve</li>
-            <li>Найбільший призовий фонд в кіберспорті</li>
+            <li>Глибока механіка: ластхіти, денай, варди, смоки, кур'єри, руни</li>
+            <li>Регулярні оновлення від Valve (патч 7.40+)</li>
+            <li>Найбільший призовий фонд в кіберспорті (TI часто > $40 млн)</li>
           </ul>
         </div>
         <div class="col-lg-6">
           <img src="https://clan.fastly.steamstatic.com/images/3703047/6627033e4c0db6f3f31b0757cacb2dfea0bb0067.png" class="img-fluid rounded-4 shadow-lg" alt="Dota 2 gameplay">
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- НОВА СЕКЦІЯ ГЕРОЇВ -->
+  <section id="heroes" class="py-5 bg-dark">
+    <div class="container">
+      <h2 class="section-title">Герої Dota 2</h2>
+      <p class="text-center lead mb-5">127 героїв — від могутніх воїнів до хитрих магів. Обери свого!</p>
+      <div class="row g-4">
+        
+        <div class="col-md-4 col-lg-3">
+          <div class="hero-card">
+            <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxMSEhUSEhIWFRUXGBUWFRYVFxUVFRcWFhUWFxUVFRUYHSggGBolHhUVITEhJSkrLi4vFx8zODMtNygtLisBCgoKDg0OGRAQGi0lICUvLS0tLS0tLSstKystLS0tLS0tLS0tKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIAJABAAMBIgACEQEDEQH/xAAcAAACAwEBAQEAAAAAAAAAAAADBQIEBgcBAAj/xAA6EAACAQIDBgMGAwgCAwAAAAABAgADEQQhMQUGEkFRYRNxgSIykaGxwQcjUhRCYnKy0eHwgvEzkqL/xAAaAQACAwEBAAAAAAAAAAAAAAAABAECAwUG/8QAKBEAAwACAgIBAwMFAAAAAAAAAAECAxEhMQQSURMiQQVxsTIzYYHh/9oADAMBAAIRAxEAPwDiZGc9tPSJ6BADy0kFnoEmFgBELJBZILJqsAIBJILCBZIJAgGFkgsKEhAkAAhZ6EhgkkEgAHgnvDLmFwjVHVEHEzEAAcyZ1FdjYDZOGXE11Feuw/LVrMC418NCLBQf3muekvEOuiUtnJDSPSHwGAas4ppa565ADmSeQE2GO/FTGO4CCmovkgUtxdFY3z9AJLaW0cRiAENOkrge2aNMJn+ni1IHPOxMtcTiXtb4GMHjvLekNN3sHgMGvtutarzdlJVbjMICPnrNBQXCVvdFFuwVP7TBUthVybmw8yIRsNUpD2lNv1aj4jSc/L56v7Yekd6MP050kbTFbkYKpm1JV7rdfplM/tL8K0b2sPWI6K+Y/wDYZiAwm8dWnb2rqNVOYP8AabXdzb1Ot7ps3NTr5g8xEay5Ie+0Z3Ka/wAnH9r7IrYN+GtTuP1Lmp9eUV1cQG8uk/RO0sPSrjhdQQdfKcj343FWgTVw5PhnlqF7dhN8XkRfH5F6VLnRhnny1rQVRSDwnUQYjXqZfV+Dbbi4xC/huATnwHqp99D259rEypvbsbwajke6GXh7pVDsh9OF1/4iZvB4lqTrUXVSCPTke06BvLiFq4Nqg0NWlwA6gMlRyCezM0ZxNOWmZ5mrjn8GAKyJWWSsiVkHNK5WRKywVkSsCQBE8Kw3DI8MAA2noElaTCwAiqwgWeqsKqwIIBYRVk1SEVIAQVJMJCKkIqSQBBJMJDBJIJAAISTCQ4SPd0tiivWHH7ikcXcnQeWXykzPs9EpbNH+H+wFoocbiFPAFZrnIBbf1NoPOYHfPeF8VWaox19lV5Ig91F6ZZ+s6d+MW0Vw2Go4RNX/ADGz5Lkvz+k4ZWqX1j00ojhcv+P+lmaDc3DAu9Yi5Sy076BmvdvMD6za4IhRMruyOCh5kk+v+AI3TEzifqmV364l0u/3Z2/AlRG3+TUUXuIS2Wl4hw2NIEupj5wXDR0XQHHbuIwJpko3TVfhymWq+LhqliSrDMEfUTcririJ9t4AVVtzHunp/iM4M1J+tdGF40+UaXdjb4xNO5IFRcqg+jDsY2x1MVabIwuGBHxnHNmY98NWDDVTZl6rzBnUaGPDKGU3BAI8jMfIxPHW56YY2q4ZyDeHZzUqnqR6jIj4RI4z0tOk73YTxWa2uTD+aYjGYIj2XUg8v8Gdrx83vC32cvNjcU9Cw6ToW6OHXFYKrQe3G1S1AnK1RKQKj1AYes59UoMNM432LjqtLhsbAVBUHXiAsI3iaVclE/bhoi1OxsdRIFJrt/NnhMR4qiyV1FUdAx98fHP/AJTMlJdrQjcuacsqFJErLRSQKSpQqlZErLRWDKwAqhc4RVnoWERYAeKsMqz1EhlWSBBUhVSTVIVUgBAJCBIRUhAkABKkIEhVSTCQACEnRPwpw92fTMjI9v8AuYMJOk/hYLOote/ET2/20vjensmXyYT8bcYz7QZT+6FWwNwLC9vn85zlptvxda+06+o9rQ+QzmHab2+F+yJNPsXEk0lHIS5+02Noi2JiLC0b1CJxM8/e9nVw39iGeHxJl9asQUamUImL6GK1j2NTl0aCjibGWTWvM/Rr8UZ4Wp1mNRo2jJso7c2WXIemMyQGH3j7YytTpLTYi6i2Ur+LD8WWsiqblSyeE9lbab3JMU4qkHQqekt4uteJNo4t1IVbAEXvqZvghvSQrlr8iyiLawhGkinO8IovOknyKo3m8FPxdnI1rtRqAX6JUH9+GYcpNxsDjr4KvTJuWUkZammwK/S0yDJGUn6rZh5s/emvyimyQZSXCkgUgJFMpIFZbZINlgBRVYZVniiHRYAfKsMqz5FhlWAHipDKk9VYVVgBFVhAkmFjDBbOLjiY8K9eZPRRzlpl09IEm+iiEkgs02wNz62KccB/LvZqljZbZ6HU9hN9S/D3DgBWXiA/euQ1+pIk+mnpst6HHgk1+4mKNKojG4HEQDyOlx8/nHO1dwKCEhMTwsAWCtYkgchp95R2gqUVoroWLCkvMqq3c28yM+t5eI1yTM6MP+N9G20Wcfvqh9Qo+1pz1EJIA1OU6p+LNHxKFGv+9kD/AMcvuPhOW0WsZbM/VcfBOvu0O6GBSjl4i1GIzAuFHrqflPfEOkVFgBJ4avnrec2/a+xyaU8IbLU5iTSoOYzlJHh1MXcm6ou0KljGGHxBvFNMSxTr2MyqdmirSG9fEgC5ylVttLa14vxFRGzJIPaJsZSF7qx9ZMYZfZS81Lo1SYoMO8X7SQkAjOx+Rmfw2KKNfXtHOD2krkDMHvNPpOHtFJzK1pla89WpnDYtbO3SwlfBJxVkXqy/C+fyjUrpkdM3+6ePTD2Ws3ACCCeSljlc/CKt4MD4WIqJa2d7cgGAIA+Mq1MOa9daAueIh26BRmTflGe8eddieif0LGMTbxvfyZebSel8CNkg2SWysGyQECqyQTLLZSDZIALVWHRYx3f2BWxb8FJch7znJEHVm+2s6hsjc7B4cDiXx6g1Z/dv/DT0t53kVUxPtT0jbFgvJ0jmGzNlVq5tSpM/kDYebaD1j+huLizqqL/M6/YmdQDgCwsoGigAAeQErYvFhcwZzX+or21K4H8f6enw2YWh+H+JIN6lFexcm/wBg8TuZiE0NN/5XA/qtNBidrFntew5xNtTbrUrim1icv7kR3x/InI9VJOTwsUJumJ6WECN+aBkbWvqR3HKbvc/d8YoeLWNqQyAGRfsP0qO053Trl2VBq7Kg82IA+s7JhUCBKKsPDpqALZE2Gpjs7a0hJRpcGnwroi8KqEVcgALC3YRVt3eOnSQ8LAsdJlt595HpsURrdJhsdtK7FixJl6wek+zI9EhztHbnth3uSM7c/KYja+2nfF0q1Q6MMuSqfZ4R0FjPa20eKpwakgknplcDziPeAZg9R9IY7b7M6Z0raeH/aMJVpgcTBWK9suU4qpsZ17c7agq00fsA3mMjOZ71YQUcTUUCw4iR5HOVyLcg/kq01kl9kytRrcpZveINaNpaYdXzlyk0WkyxQqTKpNooZLPqhy0gqdSHBvMemb74FdVmLBb2v109Zodl7tUn4zXxXBZbrwrxcTfpXPWKsRgww79ZWSlUXJXI8iYzjyQuxapeyW2NnrSbhSpxdsuIefeUaRZTcaiXlwR1JuZ61C0KyS3wVWNg6ddmzJvGuwwi1OOqvEihmYXtcWsRcaaxRhFsSO8fbMpBlqjrTI+JE2ntG0rZodzqYNavXVbKwZUA0VRY2F87C9p7tofmnyT+hZ9hHGHXDqNWViw/hcgKf8A5+U92pnUN+if0LGV/aFfIWnoWssgyywVg2WYixXZYIrLTLBssAOmDFpSpLRoKEQAZDmTqSeZ7z6jjO8RrWvYCWsMT0nnvJz3nrdHsseKYnSQ1qY46CUcQXbr6T7TOV8RjuAXvK44TJepW0KNuuaQuTbrMhiMZxEsf9Evbz7T8V+EG4GbefIfeIKjXyne8bEpnZwPJyu6NXuXRNSv4h92kLi/62yX4C5+E2mP24KC2BBZtbzMbpALQuB7xJ+w+QiPeLaPHiLdLCPy1Ipsb7Tx3FduZiWrXsCegJkq7FrCUdotw0yOthDLf1OwYtw1a1RXPXP11jHbVK4HmPhp94nJjsN4lBTztY+YykYv6tGTI7h4/wAOq1FjkTceYyMJ+IFLjcsB7oGfnr9pnatU0qy1Fy0b1GRmoxbCsOI5hs/QiWlablkfgxOGocR1sJZqLwnhBvbnC06XADfUZD+8DU1iddNa6ZpK0eK0KpgRPmqgTFo0T0X6Ty3SrWiP9qPKSQs/P+0o8RpOX4NPhXDdIf8AZxFezKYTTXmY6pteK3w+BqOVyD8ADMxdXN2jHFObZRKtbhclvSTjTZW2kRdLVDla4Bj3YTAFyxsOEXPQcQuZnq+LDVL3ysJaXEflPrZx4YNsrkg2v6R7Gt6M1anbHuGxJxNQvopsF/hpoMvkL+pjSoxY3OpzlXdrBEqVRSWICqALliTmAPIGMq+BqpfjputteJWFvO8fyS1CS/cQtt8spESBEMRIERYzAkQbLDkSBEkg2OBwgIEZeGoFosXGBQLdoKvj55RTTZ7R0H2g9hcTGbb2vZDz5Dz5RrtDaeRF5gMfiS1QjkvLuZ0vEwe1HP8AM8j1nSJmpYa56k9zI4P2nEpVa0a7u0eJ/gPiZ20cV1s32Ap8FNV6KJgK7XrN/MfrOinT0nNqjfmk/wAR+su+yo2vF+1n90eZl1TzijGVeJieWghZLZUq5CMd2a3Ej0zyN/Q/9RXiGynuwsT4dS50OR8jzlE+TNhtsUbDMe6fkYw3dxXEnAdR9Ja2nhw2dr3Fj3Ez2BqmjWsdL28xNre9UQi9tqgRYgZaHz5RUTNTjaQdLcjbMfIzLutiQeUXzS/6jRPZGV3lgyJtMEyWtg6dO8vUjbKAXKEBla5LRwX8M8bU60R0ml0VDbKLXOxvHXAzD3galAE6RclepyUDuZ8zVT28jCcT32S746GeEwq+It1Bz5jlGW9TI9anSp8Php7Vlta9gOWV7los2FhWqVLVXsvCxJ5iyki3raHw1IG5ByHM/pHOPYMdeyRTJaWLrs0u7mK8GtRbTgYO3qf7fWdT3h2YKq+KgvxD2l6gzh22cTw0bDJqhB8kXQfT4TpX4Yb0mvRFJz+YnvX6cp1MvaS+BODJY7CGmxUg2ubHqJUInRt8tnK6FhwgjM2FjfrOeOtjYxS40tozudAiJEiEMgZRGRZXEXGRgMTiDKlLFAKLSvVrzgzj5PT1k4A4uoRckzLeLqeZJJ9Y92zVtTPfL4zMkzo+MtLZyfKr7tE+Ka/culnxd/oJj1m+3LpWS/b6mOT2Ko0lTQ+U5o59s+Z+s6YwyM5lUHtHzP1l2WL2Kq2QAan6RaTCVGvBOJDAo4xpLD0rC8i+ZlnhsJWuCrQ72TivEp8J1GRijbGF9kNzXI+V/tIYGv4dQHkdY4x6XFtQYxh1Scv8lWV9gY3iXgbUaQG28KQeLyB+djFisaNS4va+XlNW6LWphuRGflKrlOKLSzJT4iFxNAoxU8vmORgoi009M0PJIGeT60gCzSaXsPFa3EvYatMrk3x1yMFp3kWwzcpOi/eHDzBU5fAzpNDLZezuFHJbPgP+/SVAeKoKS6LbjtoW5J6c+/lLpxxWiVT/AMj2UH9IBuW+koVCtCnl7xBC9STq06/jN+vs+3/Ar5bn2Uz+CntbFeI7EaL7K+S5X9czPtjY56NVXpsVa+o59u8Xg2WGwzAOpPUZ9O82990qMJO8bI22MTRKtwirw5gj3rcxMLh6Qr4o4cMtNiSE4yQCQL8FwDY9L9hCJjCiLUXJhoeXr2mXpbRLY1qmn5iP5H2bwae2vknXs9M120N2sVRBZqLFRclks62HMldB5xNOkYTbjWyJFor2xsmliLulqdU5mw9hj/Eo909x8JzsfmRT9XwxjL+l5JW55OQpjTCriwYuY5z7ii/qi31GS2xXuoHeKAJbx3KV6K6xrEtSKZnuz5Z0rdRLUr+Q+U5uozE6bu5lRUdr/GMSiqGj6Gc1xYs7eZ+s6WueQz8s5zza2HKVnToTbyMsSUrQWIawh+E9JWrqSZUjYDCm5lx0vI4VVALSNKlVqtwopzOv3gyrKlS5uQMhzjzZ9fjpgHVcvTlLFTArRplGAuRYxLsyvwNY6HIy0P1ZCLWPwvF26Hv3n2wMZwk0n9PvL9elcEDP6RDj6JBDjXn1BEazSnKtf7JfA82rgw4yHtDQ9ukzpFsjH+ydoiovCxswlfa2CB9tdf3h1HWK5YVztdl0xQJJZGfGrbTMxRItsO7hB1JldWIzJkaaljncmMcJs5nIJFhy/wB6xuMa0Zum3wRwJdja3+B3j2nh1XNiT0HX0kVVaQsouen3JgqlfgBZvaY6D/dBBYYXOi31K62WcTjUojicDiOSIOfTyUczElSszniY3J/2w6CUmqM7FnzP0HQdpZpg2hVb4XRULykqQzHnPrZS7s7DBmFxlLQnVJIlI1Ja1AeXxmQw9T86oed8vSajGV1CcAItMTUf2yR1vL29MtL0zq+zdqh1AvmLXHewN47wuIXnOUbGxZFQEnVR8RN3srE8WdxacDyN4s1OT0fjeQrhI//Z" class="hero-img" alt="Anti-Mage">
+            <div class="p-3">
+              <h5 class="red">Anti-Mage</h5>
+              <p class="hero-role">Carry / Escape</p>
+              <p class="hero-desc">Магоненависник, що спалює ману ворогам і телепортується по карті. Ідеальний late-game carry проти інт-героїв.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-lg-3">
+          <div class="hero-card">
+            <img src="data:image/jpeg;base64,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" class="hero-img" alt="Axe">
+            <div class="p-3">
+              <h5 class="red">Axe</h5>
+              <p class="hero-role">Offlane / Initiator</p>
+              <p class="hero-desc">Герой-танк для ініціації. Call + Berserker's Call робить його кошмаром для carry.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-lg-3">
+          <div class="hero-card">
+            <img src="data:image/jpeg;base64,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" class="hero-img" alt="Crystal Maiden">
+            <div class="p-3">
+              <h5 class="red">Crystal Maiden</h5>
+              <p class="hero-role">Hard Support</p>
+              <p class="hero-desc">Класичний сапорт з глобальним аурою мана-регену та потужним ультимейтом Freezing Field.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-lg-3">
+          <div class="hero-card">
+            <img src="https://dota2.ru/img/heroes/invoker/portrait.jpg" class="hero-img" alt="Invoker">
+            <div class="p-3">
+              <h5 class="red">Invoker</h5>
+              <p class="hero-role">Mid / Ganker</p>
+              <p class="hero-desc">Маг з 10+ заклинаннями. Вимагає майстерності, але може робити все: дамаг, контроль, виживання.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-lg-3">
+          <div class="hero-card">
+            <img src="https://dota2.ru/img/heroes/pudge/portrait.jpg" class="hero-img" alt="Pudge">
+            <div class="p-3">
+              <h5 class="red">Pudge</h5>
+              <p class="hero-role">Support / Roamer</p>
+              <p class="hero-desc">М'ясник з хуком. Один вдалий Meat Hook — і ворог мертвий. Легендарний герой для любителів ганків.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-lg-3">
+          <div class="hero-card">
+            <img src="https://dota2.ru/img/heroes/phantom_assassin/portrait.jpg" class="hero-img" alt="Phantom Assassin">
+            <div class="p-3">
+              <h5 class="red">Phantom Assassin</h5>
+              <p class="hero-role">Carry</p>
+              <p class="hero-desc">Критична вбивця з високим шансом криту. Coup de Grace робить її жахливою в late-game.</p>
+            </div>
+          </div>
+        </div>
+
+        
+        <div class="col-md-4 col-lg-3">
+          <div class="hero-card">
+            <img src="https://dota2.ru/img/heroes/ursa/portrait.jpg" class="hero-img" alt="Ursa">
+            <div class="p-3">
+              <h5 class="red">Ursa</h5>
+              <p class="hero-role">Carry / Jungler</p>
+              <p class="hero-desc">Найшвидший фармер джунглів. Fury Swipes + Overpower = швидке вбивство будь-якого героя.</p>
+            </div>
+          </div>
+        </div>
+
+        
+      </div>
+      <div class="text-center mt-5">
+        <p class="lead">Повний актуальний список (127 героїв) дивись на <a href="https://dota2.com/heroes" target="_blank" class="text-danger">офіційному сайті Dota 2</a></p>
       </div>
     </div>
   </section>
@@ -101,7 +259,7 @@
         <div class="carousel-inner rounded-4 shadow-lg">
           <div class="carousel-item active"><img src="https://i.pinimg.com/736x/3f/82/5c/3f825c50cdc92bec14c82a0ffe6f5a9b.jpg" class="d-block w-100" alt="Pudge"></div>
           <div class="carousel-item"><img src="https://s3.stroi-news.ru/img/invoker-kartinki-1.jpg" class="d-block w-100" alt="Invoker"></div>
-          <div class="carousel-item"><img src="https://s1.1zoom.ru/big3/992/DOTA_2_Anti-Mage_Warriors_Battle_axes_583690_1920x1080.jpg" class="d-block w-100" alt="Anti-Mage"></div>
+          <div class="carousel-item"><img src="https://media-management-service.s3.amazonaws.com/media/images/01ef6138ba88568f23ac96b6c4fd74c8_large_cover.26.original.jpg" class="d-block w-100" alt="Anti-Mage"></div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#galleryCarousel" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
         <button class="carousel-control-next" type="button" data-bs-target="#galleryCarousel" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
@@ -120,9 +278,10 @@
   </section>
 
   <footer class="text-center py-5">
-    <p>© 2025 Valve Corporation. Dota та логотип Dota є торговими марками Valve Corporation.<br>Фан-сайт створений з любов'ю до гри.</p>
+    <p>© 2026 Valve Corporation. Dota та логотип Dota є торговими марками Valve Corporation.<br></p>
   </footer>
 
+  
   <div class="modal fade" id="authModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content bg-dark text-white border-danger">
@@ -166,177 +325,12 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
+    
     let currentUser = null;
     const ADMIN_NICK = 'admin';
     const ADMIN_PASS = 'dota2';
 
-    function toggleAuth() {
-      const t = document.getElementById('authTitle');
-      const b = document.querySelector('#authModal .btn-danger');
-      if (t.textContent === 'Реєстрація') { t.textContent = 'Вхід'; b.style.display = 'none'; }
-      else { t.textContent = 'Реєстрація'; b.style.display = 'inline-block'; }
-    }
-
-    function register() {
-      const n = document.getElementById('nick').value.trim();
-      const p = document.getElementById('pass').value;
-      if (!n || !p) return alert('Заповни все');
-      if (n === ADMIN_NICK) return alert('Нік зарезервовано');
-      const u = JSON.parse(localStorage.getItem('dotaUsers') || '{}');
-      if (u[n]) return alert('Нік зайнятий');
-      u[n] = p; localStorage.setItem('dotaUsers', JSON.stringify(u));
-      alert('Зареєстровано! Тепер увійди');
-    }
-
-    function login() {
-      const n = document.getElementById('nick').value.trim();
-      const p = document.getElementById('pass').value;
-      if (!n || !p) return alert('Заповни все');
-      if (n === ADMIN_NICK && p === ADMIN_PASS) currentUser = {nick: n, isAdmin: true};
-      else {
-        const u = JSON.parse(localStorage.getItem('dotaUsers') || '{}');
-        if (u[n] && u[n] === p) currentUser = {nick: n, isAdmin: false};
-        else return alert('Неправильно');
-      }
-      document.getElementById('nick').value = document.getElementById('pass').value = '';
-      bootstrap.Modal.getInstance(document.getElementById('authModal')).hide();
-      updateUI();
-    }
-
-    function logout() { currentUser = null; updateUI(); }
-
-    function updateUI() {
-      let link = document.getElementById('loginLink');
-      if (!link) {
-        const li = document.createElement('li');
-        li.className = 'nav-item';
-        li.innerHTML = `<a class="nav-link text-white" href="#" id="loginLink">УВІЙТИ</a>`;
-        document.querySelector('.navbar-nav').appendChild(li);
-        link = document.getElementById('loginLink');
-      }
-      if (currentUser) {
-        link.innerHTML = `${currentUser.nick} <small class="text-muted">[вихід]</small>`;
-        link.onclick = logout;
-        document.getElementById('adminBtn').style.display = currentUser.isAdmin ? 'block' : 'none';
-      } else {
-        link.innerHTML = 'УВІЙТИ';
-        link.onclick = () => new bootstrap.Modal('#authModal').show();
-        document.getElementById('adminBtn').style.display = 'none';
-      }
-      renderNews();
-    }
-
-    const defaultNews = [
-      { id: "n1", title: "Вийшов патч 7.37d", text: "Нерф Techies, буф Pudge, нові предмети.", img: "https://dota2.ru/img/news/slider/t1727849005.webp", link: "", date: "2025-11-26" },
-      { id: "n2", title: "Анонс The International 2025", text: "Призовий фонд стартує з $40 млн.", img: "https://dota2.net/images/cdn/MjUwNQ==/SVJTZ1hBQndPNw==.webp", link: "https://dota2.ru/news/ti2025", date: "2025-11-20" },
-      { id: "n3", title: "Новий герой — Ringmaster", text: "Вже в грі! Цирк прийшов у Dota.", img: "https://escorenews.com/media/news/n52377.jpeg", link: "", date: "2025-11-15" }
-    ];
-
-    function getNews() {
-      const s = localStorage.getItem('dotaNews');
-      if (s) return JSON.parse(s);
-      localStorage.setItem('dotaNews', JSON.stringify(defaultNews));
-      return defaultNews;
-    }
-    function saveNews(a) { localStorage.setItem('dotaNews', JSON.stringify(a)); }
-    function generateId() { return 'n' + Date.now() + Math.floor(Math.random()*1000); }
-
-    function renderNews() {
-      const news = getNews();
-      document.getElementById('newsContainer').innerHTML = news.map(n => `
-        <div class="col-md-4">
-          <div class="card bg-secondary text-white news-card h-100 position-relative ${n.link ? 'news-link' : ''}">
-            <div class="news-content" ${n.link ? `onclick="window.open('${n.link}', '_blank')"` : ''}>
-              ${currentUser?.isAdmin ? `<button class="btn btn-danger btn-sm position-absolute top-0 end-0 m-2 z-3" onclick="event.stopPropagation(); deleteNews('${n.id}')">×</button>` : ''}
-              <img src="${n.img}" class="card-img-top" alt="">
-              <div class="card-body">
-                <h5 class="card-title red">${n.title}</h5>
-                <p class="card-text">${n.text}</p>
-                <small>${new Date(n.date).toLocaleDateString('uk-UA')}</small>
-                ${n.link ? `<p class="mt-2 mb-0"><small class="text-danger">Перейти до новини →</small></p>` : ''}
-              </div>
-            </div>
-            <div class="comments-section" onclick="event.stopPropagation();">
-              <h6 class="red mb-2">Коментарі (<span id="count-${n.id}">0</span>)</h6>
-              <div id="comments-${n.id}" class="mb-3 small"></div>
-              ${currentUser ? `
-                <div class="input-group">
-                  <input type="text" class="form-control bg-dark text-white border-secondary" placeholder="Комент..." id="inp-${n.id}">
-                  <button class="btn btn-outline-danger" onclick="event.stopPropagation(); addComment('${n.id}')">Відправити</button>
-                </div>
-              ` : '<p class="text-muted small">Увійди, щоб коментувати</p>'}
-            </div>
-          </div>
-        </div>
-      `).join('');
-      news.forEach(n => renderComments(n.id));
-    }
-
-    function addComment(id) {
-      const inp = document.getElementById(`inp-${id}`);
-      const text = inp.value.trim();
-      if (!text) return;
-      const key = `comments_${id}`;
-      let c = JSON.parse(localStorage.getItem(key) || '[]');
-      c.push({ user: currentUser.nick, text, date: new Date().toLocaleString('uk-UA') });
-      localStorage.setItem(key, JSON.stringify(c));
-      inp.value = '';
-      renderComments(id);
-    }
-
-    function renderComments(id) {
-      const key = `comments_${id}`;
-      const c = JSON.parse(localStorage.getItem(key) || '[]');
-      const div = document.getElementById(`comments-${id}`);
-      const cnt = document.getElementById(`count-${id}`);
-      if (cnt) cnt.textContent = c.length;
-      if (!div) return;
-      div.innerHTML = c.map((com, i) => `
-        <div class="comment-item d-flex justify-content-between align-items-start">
-          <div class="d-flex">
-            <div class="bg-danger rounded-circle text-white d-flex align-items-center justify-content-center me-2" style="width:32px;height:32px;font-size:14px;">${com.user[0]}</div>
-            <div>
-              <strong class="red">${com.user}</strong>
-              <small class="text-muted ms-2">${com.date}</small>
-              <p class="mb-0 small">${com.text}</p>
-            </div>
-          </div>
-          ${currentUser?.isAdmin ? `<button class="btn btn-sm text-danger" onclick="event.stopPropagation(); deleteComment('${id}',${i})">×</button>` : ''}
-        </div>
-      `).join('');
-    }
-
-    function deleteComment(id, i) {
-      if (!confirm('Видалити комент?')) return;
-      const key = `comments_${id}`;
-      let c = JSON.parse(localStorage.getItem(key) || '[]');
-      c.splice(i, 1);
-      localStorage.setItem(key, JSON.stringify(c));
-      renderComments(id);
-    }
-
-    function addNews() {
-      const title = document.getElementById('newTitle').value.trim();
-      const text = document.getElementById('newText').value.trim();
-      const img = document.getElementById('newImg').value.trim() || 'https://via.placeholder.com/400x200?text=Dota+2';
-      const link = document.getElementById('newLink').value.trim();
-      const date = document.getElementById('newDate').value || new Date().toISOString().split('T')[0];
-      if (!title || !text) return alert('Заповни заголовок і опис');
-      const news = getNews();
-      news.unshift({ id: generateId(), title, text, img, link, date });
-      saveNews(news);
-      renderNews();
-      bootstrap.Modal.getInstance(document.getElementById('adminModal')).hide();
-      document.querySelectorAll('#adminModal input').forEach(i => i.value = '');
-    }
-
-    function deleteNews(id) {
-      if (!confirm('Видалити новину назавжди?')) return;
-      const news = getNews().filter(n => n.id !== id);
-      saveNews(news);
-      localStorage.removeItem(`comments_${id}`);
-      renderNews();
-    }
+    
 
     document.addEventListener('DOMContentLoaded', updateUI);
   </script>
